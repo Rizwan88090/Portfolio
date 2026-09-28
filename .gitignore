@@ -1,6 +1,8 @@
 # Dependencies and builds
 node_modules/
 .next/
+.next-build/
+.next-old/
 out/
 dist/
 *.tsbuildinfo

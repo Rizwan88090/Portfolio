@@ -54,7 +54,8 @@ export default function AdminPage() {
 
   const signOut = useCallback(async () => {
     await apiFetch('/auth/logout', { method: 'POST' }).catch(() => null);
-    setAdmin(null);
+    // Back to the public website after signing out.
+    window.location.href = '/';
   }, []);
 
   if (!ready) {

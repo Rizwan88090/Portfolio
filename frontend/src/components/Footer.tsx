@@ -1,4 +1,4 @@
-import { ArrowUpRight, Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
+import { ArrowUpRight, Lock, Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
 import { SITE, telHref } from '@/data/site';
 import Logo from './Logo';
 import Reveal from './Reveal';
@@ -122,7 +122,17 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="relative border-t border-white/5">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 text-xs text-mist/80 sm:flex-row sm:px-6">
-          <p>© {year} {SITE.legalName}. All rights reserved.</p>
+          <p className="flex items-center gap-3">
+            © {year} {SITE.legalName}. All rights reserved.
+            <a
+              href="/admin"
+              aria-label="Team login"
+              title="Team login"
+              className="group relative flex h-7 w-7 items-center justify-center rounded-full text-mist/60 ring-1 ring-white/10 transition hover:bg-white/5 hover:text-brand-2 hover:ring-brand-2/40"
+            >
+              <Lock className="h-3.5 w-3.5 transition group-hover:scale-110" />
+            </a>
+          </p>
           <p className="flex items-center gap-1.5">
             <MapPin className="h-3.5 w-3.5" /> Designed and engineered in {SITE.city}
           </p>
