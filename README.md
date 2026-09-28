@@ -81,6 +81,22 @@ on a deep navy-black background #05060F. Wordmark "Pentacore" in a geometric san
 Deliver a square icon version and a horizontal logo version.
 ```
 
+## Deploy to a VPS (pentacore.world)
+
+Files are in `deploy/`. The server runs Nginx (HTTPS) in front of the Next.js site on port 3000.
+Next.js forwards `/api` to the NestJS API on `127.0.0.1:4000`, which is not reachable from outside.
+PM2 keeps both apps running.
+
+1. Point the domain's DNS `A` records for `@` and `www` to the VPS IP.
+2. On a fresh Ubuntu VPS, as root:
+
+   ```bash
+   git clone https://github.com/Rizwan88090/Portfolio.git /var/www/pentacore
+   ADMIN_INITIAL_PASSWORD='choose-one' CERTBOT_EMAIL='you@example.com' bash /var/www/pentacore/deploy/setup-server.sh
+   ```
+
+3. To ship new code later: `bash /var/www/pentacore/deploy/update.sh`
+
 ## Production
 
 ```bash

@@ -20,7 +20,8 @@ async function bootstrap() {
   );
 
   const port = Number(process.env.PORT ?? 4000);
-  await app.listen(port);
+  // In production HOST=127.0.0.1 keeps the API private behind Next.js and Nginx.
+  await app.listen(port, process.env.HOST ?? '0.0.0.0');
   Logger.log(`Pentacore API running on http://localhost:${port}/api`, 'Bootstrap');
 }
 bootstrap();
