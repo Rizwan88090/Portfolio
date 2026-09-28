@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring } from 'framer-motion';
-import { ArrowUpRight, Menu, Phone, X } from 'lucide-react';
+import { ArrowUpRight, Lock, Menu, Phone, X } from 'lucide-react';
 import Logo from './Logo';
 import Magnetic from './Magnetic';
 import { SITE, telHref } from '@/data/site';
@@ -118,6 +118,17 @@ export default function Navbar() {
           ))}
         </ul>
 
+        <div className="flex items-center gap-2">
+        {/* Small team login link, on every screen size. */}
+        <a
+          href="/admin"
+          aria-label="Team login"
+          title="Team login"
+          className="group flex h-9 w-9 items-center justify-center rounded-full text-mist/70 ring-1 ring-white/10 transition hover:bg-white/5 hover:text-brand-2 hover:ring-brand-2/40"
+        >
+          <Lock className="h-3.5 w-3.5 transition group-hover:scale-110" />
+        </a>
+
         {/* Desktop only. The wrapper owns the display rule; Magnetic's own inline-block would override "hidden". */}
         <div className="hidden md:block">
           <Magnetic>
@@ -152,6 +163,7 @@ export default function Navbar() {
             </motion.span>
           </AnimatePresence>
         </button>
+        </div>
 
         {/* Reading progress */}
         <motion.span
