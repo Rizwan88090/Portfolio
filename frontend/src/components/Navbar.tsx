@@ -118,17 +118,20 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <Magnetic className="hidden md:inline-block">
-          <a
-            href="#order"
-            onClick={go('order')}
-            className="group relative inline-flex items-center gap-1.5 overflow-hidden rounded-xl bg-white px-4 py-2 text-sm font-semibold text-ink-950"
-          >
-            <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-brand-1 to-brand-2 transition-transform duration-500 ease-out group-hover:translate-x-0" />
-            <span className="relative transition-colors duration-300 group-hover:text-white">Start a project</span>
-            <ArrowUpRight className="relative h-4 w-4 transition duration-300 group-hover:rotate-45 group-hover:text-white" />
-          </a>
-        </Magnetic>
+        {/* Desktop only. The wrapper owns the display rule; Magnetic's own inline-block would override "hidden". */}
+        <div className="hidden md:block">
+          <Magnetic>
+            <a
+              href="#order"
+              onClick={go('order')}
+              className="group relative inline-flex items-center gap-1.5 overflow-hidden rounded-xl bg-white px-4 py-2 text-sm font-semibold text-ink-950"
+            >
+              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-brand-1 to-brand-2 transition-transform duration-500 ease-out group-hover:translate-x-0" />
+              <span className="relative transition-colors duration-300 group-hover:text-white">Start a project</span>
+              <ArrowUpRight className="relative h-4 w-4 transition duration-300 group-hover:rotate-45 group-hover:text-white" />
+            </a>
+          </Magnetic>
+        </div>
 
         <button
           onClick={() => setOpen((v) => !v)}

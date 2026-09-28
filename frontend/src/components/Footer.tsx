@@ -25,7 +25,7 @@ const whatsapp = `https://wa.me/92${SITE.phones[0].replace(/\D/g, '').replace(/^
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="relative overflow-hidden border-t border-white/5 bg-ink-900/40">
+    <footer id="site-footer" className="relative overflow-hidden border-t border-white/5 bg-ink-900/40">
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[400px] w-[900px] -translate-x-1/2 rounded-full bg-brand-1/10 blur-[140px]" />
 
       {/* Call to action */}

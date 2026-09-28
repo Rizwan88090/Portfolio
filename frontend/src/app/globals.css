@@ -83,22 +83,18 @@ html.lenis body {
 }
 
 /* Animated gradient border for highlighted cards */
+/*
+ * Gradient border without CSS masks (masks rendered as a solid fill on Android Chrome).
+ * Two background layers: an opaque card fill clipped to the padding box on top of a
+ * gradient clipped to the border box, so the gradient only shows in the 1px border.
+ * Declared after .glass so it overrides the glass background and border.
+ */
 .glow-border {
   position: relative;
-}
-.glow-border::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  padding: 1px;
-  border-radius: inherit;
-  background: linear-gradient(135deg, rgb(139 92 246 / 0.7), rgb(34 211 238 / 0.15) 40%, rgb(244 114 182 / 0.6));
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(160deg, #12142a, #0a0b1a) padding-box,
+    linear-gradient(135deg, rgb(139 92 246 / 0.7), rgb(34 211 238 / 0.15) 40%, rgb(244 114 182 / 0.6)) border-box;
 }
 
 .marquee {

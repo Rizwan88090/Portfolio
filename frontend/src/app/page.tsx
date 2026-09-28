@@ -8,6 +8,7 @@ import Process from '@/components/Process';
 import WhyUs from '@/components/WhyUs';
 import OrderForm from '@/components/OrderForm';
 import Footer from '@/components/Footer';
+import MobileCta from '@/components/MobileCta';
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
         <OrderForm />
       </main>
       <Footer />
+      <MobileCta />
     </>
   );
 }
