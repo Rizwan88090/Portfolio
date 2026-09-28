@@ -87,6 +87,10 @@ Files are in `deploy/`. The server runs Nginx (HTTPS) in front of the Next.js si
 Next.js forwards `/api` to the NestJS API on `127.0.0.1:4000`, which is not reachable from outside.
 PM2 keeps both apps running.
 
+The scripts are safe on a VPS that already hosts other websites. They never edit other Nginx sites, PM2 apps,
+databases or firewall rules, never upgrade the system Node.js, and pick free ports automatically.
+Run `bash deploy/inspect-server.sh` first for a read-only report of what is on the server.
+
 1. Point the domain's DNS `A` records for `@` and `www` to the VPS IP.
 2. On a fresh Ubuntu VPS, as root:
 

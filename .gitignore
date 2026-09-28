@@ -18,3 +18,6 @@ Thumbs.db
 .vscode/
 .idea/
 *.log
+
+# Server-specific deploy settings (ports, Node.js path)
+.deploy.env
