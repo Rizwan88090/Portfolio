@@ -1,0 +1,55 @@
+import { TeamMember } from './team-member.entity';
+
+// Keep in sync with frontend/src/data/team.ts
+export const TEAM_SEED: TeamMember[] = [
+  {
+    slug: 'azaan-saeed',
+    name: 'Azaan Saeed',
+    role: 'Mobile Engineer · Flutter & Automation',
+    bio: 'Develops polished cross-platform mobile apps with Flutter and Dart, and automates end-to-end business workflows with n8n.',
+    skills: ['Flutter', 'Dart', 'iOS & Android Development', 'Firebase Integration', 'n8n Workflow Automation', 'REST API Integration'],
+    experienceYears: 5,
+    image: '/team/azaan.jpg',
+    sortOrder: 1,
+  },
+  {
+    slug: 'muhammad-rizwan',
+    name: 'Muhammad Rizwan',
+    role: 'Full-Stack Engineer · NestJS & Next.js',
+    bio: 'Architects custom platforms and complex business logic, specialising in scalable NestJS back ends and high-performance Next.js front ends.',
+    skills: ['NestJS', 'Next.js', 'Node.js', 'TypeScript', 'System Architecture', 'RESTful API Design'],
+    experienceYears: 5,
+    image: '/team/rizwan.jpg',
+    sortOrder: 2,
+  },
+  {
+    slug: 'mahar-muhammad-asjad',
+    name: 'Mahar Muhammad Asjad',
+    role: 'Full-Stack Engineer · MERN Stack',
+    bio: 'Builds fast, bespoke websites and web applications on the MERN stack, from pixel-perfect React interfaces to robust Node.js APIs.',
+    skills: ['MongoDB', 'Express.js', 'React', 'Node.js', 'Custom Web Development', 'Responsive UI Development'],
+    experienceYears: 5,
+    image: '/team/asjad.jpg',
+    sortOrder: 3,
+  },
+  {
+    slug: 'ateeq-haider',
+    name: 'Ateeq Haider',
+    role: 'Software Project Manager & Web Developer',
+    bio: 'Leads delivery from start to finish, turning client goals into clear roadmaps, running agile sprints and contributing production React and Node.js code.',
+    skills: ['Software Project Management', 'Agile & Scrum', 'Requirements Analysis', 'Client Relations', 'React', 'Node.js'],
+    experienceYears: 5,
+    image: '/team/ateeq.jpg',
+    sortOrder: 4,
+  },
+  {
+    slug: 'tayyab-fayyaz',
+    name: 'Tayyab Fayyaz',
+    role: 'AI Engineer · Machine Learning',
+    bio: 'Designs, trains and deploys machine learning models and AI features that give products a genuine competitive edge.',
+    skills: ['Python', 'Machine Learning', 'Deep Learning', 'Model Training & Fine-Tuning', 'LLM Applications', 'Data Analysis'],
+    experienceYears: 5,
+    image: '/team/tayyab.jpg',
+    sortOrder: 5,
+  },
+];

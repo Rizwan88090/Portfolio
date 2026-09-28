@@ -1,0 +1,12 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 80' fill='none'>
+<defs><linearGradient id='s' x1='8' y1='0' x2='56' y2='0' gradientUnits='userSpaceOnUse'><stop stop-color='#8b5cf6'/><stop offset='0.5' stop-color='#7c9cf8'/><stop offset='1' stop-color='#22d3ee'/></linearGradient>
+<radialGradient id='c' cx='0.45' cy='0.4' r='0.7'><stop stop-color='#f9a8d4'/><stop offset='0.55' stop-color='#ec4899'/><stop offset='1' stop-color='#a855f7'/></radialGradient>
+<radialGradient id='g'><stop stop-color='#f472b6' stop-opacity='0.65'/><stop offset='1' stop-color='#f472b6' stop-opacity='0'/></radialGradient>
+<linearGradient id='t' x1='195' y1='0' x2='292' y2='0' gradientUnits='userSpaceOnUse'><stop stop-color='#a855f7'/><stop offset='0.4' stop-color='#ec4899'/><stop offset='0.7' stop-color='#60a5fa'/><stop offset='1' stop-color='#22d3ee'/></linearGradient></defs>
+<g transform='translate(8 8)'><circle cx='32' cy='33.5' r='15' fill='url(#g)'/>
+<polyline points='32,11.5 52.92,26.7 44.93,51.3 19.07,51.3 11.08,26.7 32,11.5' stroke='url(#s)' stroke-width='2.6' stroke-linejoin='round'/>
+<line x1='32' y1='33.5' x2='32' y2='11.5' stroke='url(#s)' stroke-width='2.6' stroke-linecap='round'/><line x1='32' y1='33.5' x2='52.92' y2='26.7' stroke='url(#s)' stroke-width='2.6' stroke-linecap='round'/><line x1='32' y1='33.5' x2='44.93' y2='51.3' stroke='url(#s)' stroke-width='2.6' stroke-linecap='round'/><line x1='32' y1='33.5' x2='19.07' y2='51.3' stroke='url(#s)' stroke-width='2.6' stroke-linecap='round'/><line x1='32' y1='33.5' x2='11.08' y2='26.7' stroke='url(#s)' stroke-width='2.6' stroke-linecap='round'/>
+<circle cx='32' cy='11.5' r='4.8' fill='url(#s)'/><circle cx='52.92' cy='26.7' r='4.8' fill='url(#s)'/><circle cx='44.93' cy='51.3' r='4.8' fill='url(#s)'/><circle cx='19.07' cy='51.3' r='4.8' fill='url(#s)'/><circle cx='11.08' cy='26.7' r='4.8' fill='url(#s)'/>
+<circle cx='32' cy='33.5' r='6' fill='url(#c)'/></g>
+<text x='86' y='54' font-family='Sora, Segoe UI, sans-serif' font-size='40' font-weight='600' letter-spacing='-0.5'><tspan fill='#ffffff'>Penta</tspan><tspan fill='url(#t)'>core</tspan></text>
+</svg>
