@@ -8,7 +8,7 @@ import * as THREE from 'three';
 const NODE_COLORS = ['#8b5cf6', '#22d3ee', '#f472b6', '#38bdf8', '#a78bfa'];
 
 /** The liquid "core" at the centre. */
-function Core() {
+function Core({ lite = false }: { lite?: boolean }) {
   const mesh = useRef<THREE.Mesh>(null!);
   const cage = useRef<THREE.Mesh>(null!);
   useFrame((_, delta) => {
@@ -20,7 +20,7 @@ function Core() {
   return (
     <Float speed={1.4} rotationIntensity={0.35} floatIntensity={1.1}>
       <mesh ref={mesh}>
-        <icosahedronGeometry args={[1.3, 24]} />
+        <icosahedronGeometry args={[1.3, lite ? 10 : 24]} />
         <MeshDistortMaterial
           color="#7c5cff"
           emissive="#3a1bb5"
@@ -105,13 +105,14 @@ function Rig({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function HeroScene({ active = true }: { active?: boolean }) {
+/** lite: phones and tablets get fewer particles, a simpler mesh and a lower pixel ratio. */
+export default function HeroScene({ active = true, lite = false }: { active?: boolean; lite?: boolean }) {
   return (
     <Canvas
       frameloop={active ? 'always' : 'never'}
-      dpr={[1, 1.75]}
+      dpr={lite ? [1, 1.25] : [1, 1.75]}
       camera={{ position: [0, 0, 7.5], fov: 45 }}
-      gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+      gl={{ antialias: !lite, alpha: true, powerPreference: lite ? 'low-power' : 'high-performance' }}
     >
       <ambientLight intensity={0.6} />
       <hemisphereLight args={['#8b5cf6', '#0a0c1b', 1.2]} />
@@ -120,11 +121,11 @@ export default function HeroScene({ active = true }: { active?: boolean }) {
       <pointLight position={[0, 4, -3]} intensity={60} color="#a78bfa" />
       <directionalLight position={[2, 5, 5]} intensity={1.6} />
       <Rig>
-        <Core />
+        <Core lite={lite} />
         <PentaRing />
       </Rig>
-      <Sparkles count={90} scale={[14, 8, 5]} size={2.2} speed={0.35} color="#c4b5fd" />
-      <Stars radius={60} depth={40} count={1400} factor={3} fade speed={0.5} />
+      <Sparkles count={lite ? 35 : 90} scale={[14, 8, 5]} size={2.2} speed={0.35} color="#c4b5fd" />
+      <Stars radius={60} depth={40} count={lite ? 500 : 1400} factor={3} fade speed={0.5} />
     </Canvas>
   );
 }

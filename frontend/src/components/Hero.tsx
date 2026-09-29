@@ -8,8 +8,6 @@ import Magnetic from './Magnetic';
 
 const HeroScene = dynamic(() => import('./HeroScene'), { ssr: false, loading: () => null });
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-
 const HEADLINE: { text: string; gradient?: boolean }[] = [
   { text: 'Building' },
   { text: 'software' },
@@ -19,14 +17,20 @@ const HEADLINE: { text: string; gradient?: boolean }[] = [
   { text: 'growth.' },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  show: (delay: number) => ({ opacity: 1, y: 0, transition: { delay, duration: 0.8, ease: EASE } }),
+// Entrance animations are plain CSS (see .rise / .word in globals.css) so the hero text
+// paints with the first HTML response instead of waiting for JavaScript to load.
+const delay = (s: number) => ({ animationDelay: `${s}s` });
+
+type IdleWindow = Window & {
+  requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+  cancelIdleCallback?: (id: number) => void;
 };
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(true);
+  const [sceneReady, setSceneReady] = useState(false);
+  const [lite, setLite] = useState(false);
 
   // Pause the 3D render loop when the hero is off-screen to save battery.
   useEffect(() => {
@@ -37,6 +41,28 @@ export default function Hero() {
     return () => io.disconnect();
   }, []);
 
+  // Load the 3D scene only after the text has painted. Phones get a lighter scene,
+  // and data-saver mode on a phone skips it entirely.
+  useEffect(() => {
+    const w = window as IdleWindow;
+    const small = window.matchMedia('(max-width: 1023px), (hover: none)').matches;
+    const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+    setLite(small);
+    if (small && saveData) return;
+    let idle = 0;
+    const t = window.setTimeout(
+      () => {
+        if (w.requestIdleCallback) idle = w.requestIdleCallback(() => setSceneReady(true), { timeout: 2500 });
+        else setSceneReady(true);
+      },
+      small ? 1200 : 250,
+    );
+    return () => {
+      clearTimeout(t);
+      if (idle && w.cancelIdleCallback) w.cancelIdleCallback(idle);
+    };
+  }, []);
+
   // Parallax: text drifts up and fades, the 3D scene sinks slower.
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
   const textY = useTransform(scrollYProgress, [0, 1], [0, -140]);
@@ -44,28 +70,24 @@ export default function Hero() {
   const sceneY = useTransform(scrollYProgress, [0, 1], [0, 160]);
   const sceneScale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
 
-  const afterHeadline = 0.3 + HEADLINE.length * 0.08;
+  const afterHeadline = 0.15 + HEADLINE.length * 0.06;
 
   return (
     <section id="top" ref={ref} className="relative flex min-h-[100svh] items-center overflow-hidden">
       {/* Background glow + grid */}
       <div className="pointer-events-none absolute inset-0">
-        <motion.div
-          className="absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full blob-violet"
-          animate={{ opacity: [0.7, 1, 0.7], scale: [1, 1.08, 1] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          className="absolute right-[-10%] bottom-[-20%] h-[500px] w-[500px] rounded-full blob-cyan"
-          animate={{ x: [0, -60, 0], y: [0, -40, 0] }}
-          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-        />
+        <div className="glow-pulse absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full blob-violet" />
+        <div className="glow-drift absolute right-[-10%] bottom-[-20%] h-[500px] w-[500px] rounded-full blob-cyan" />
         <div className="grid-bg absolute inset-0" />
       </div>
 
-      {/* 3D scene */}
+      {/* 3D scene, faded in once loaded */}
       <motion.div className="absolute inset-0" style={{ y: sceneY, scale: sceneScale }}>
-        <HeroScene active={active} />
+        {sceneReady && (
+          <div className="fade-in absolute inset-0">
+            <HeroScene active={active} lite={lite} />
+          </div>
+        )}
       </motion.div>
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink-950/80 via-ink-950/20 to-transparent max-lg:bg-gradient-to-t max-lg:from-ink-950 max-lg:via-ink-950/60" />
 
@@ -74,12 +96,9 @@ export default function Hero() {
         className="relative z-10 mx-auto w-full max-w-6xl px-4 pt-32 pb-20 sm:px-6 max-lg:pt-[44svh]"
       >
         <div className="max-w-2xl">
-          <motion.div
-            custom={0.1}
-            initial="hidden"
-            animate="show"
-            variants={fadeUp}
-            className="glass mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-mist"
+          <div
+            style={delay(0.05)}
+            className="rise glass mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-mist"
           >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-2 opacity-70" />
@@ -87,44 +106,27 @@ export default function Hero() {
             </span>
             Pentacore Technologies · Software Engineering Studio
             <Sparkles className="h-3.5 w-3.5 text-brand-2" />
-          </motion.div>
+          </div>
 
           <h1 className="font-display text-4xl leading-[1.08] font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">
             {HEADLINE.map((w, i) => (
               <Fragment key={w.text}>
                 <span className="inline-block overflow-hidden pb-[0.12em] align-bottom">
-                  <motion.span
-                    className={`inline-block ${w.gradient ? 'text-gradient' : ''}`}
-                    initial={{ y: '110%', opacity: 0, filter: 'blur(10px)' }}
-                    animate={{ y: '0%', opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
-                    transition={{ delay: 0.3 + i * 0.08, duration: 0.9, ease: EASE }}
-                  >
+                  <span className={`word ${w.gradient ? 'text-gradient' : ''}`} style={delay(0.15 + i * 0.06)}>
                     {w.text}
-                  </motion.span>
+                  </span>
                 </span>{' '}
               </Fragment>
             ))}
           </h1>
 
-          <motion.p
-            custom={afterHeadline}
-            initial="hidden"
-            animate="show"
-            variants={fadeUp}
-            className="mt-6 max-w-xl text-base leading-relaxed text-mist sm:text-lg"
-          >
+          <p style={delay(afterHeadline)} className="rise mt-6 max-w-xl text-base leading-relaxed text-mist sm:text-lg">
             A team of five senior software engineers, each with over five years of industry experience,
             delivering custom web platforms, cross-platform mobile apps, AI solutions and intelligent
             automation.
-          </motion.p>
+          </p>
 
-          <motion.div
-            custom={afterHeadline + 0.15}
-            initial="hidden"
-            animate="show"
-            variants={fadeUp}
-            className="mt-10 flex flex-wrap gap-4"
-          >
+          <div style={delay(afterHeadline + 0.1)} className="rise mt-10 flex flex-wrap gap-4">
             <Magnetic>
               <a
                 href="#order"
@@ -143,27 +145,21 @@ export default function Hero() {
                 Meet the team
               </a>
             </Magnetic>
-          </motion.div>
+          </div>
         </div>
       </motion.div>
 
-      <motion.a
+      <a
         href="#services"
         aria-label="Scroll to services"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6 }}
-        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-xs text-mist/70 hover:text-white sm:flex"
+        style={delay(1.2)}
+        className="rise absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-xs text-mist/70 hover:text-white sm:flex"
       >
         <span>Scroll</span>
         <span className="flex h-9 w-5 justify-center rounded-full ring-1 ring-white/20">
-          <motion.span
-            className="mt-1.5 h-2 w-1 rounded-full bg-brand-2"
-            animate={{ y: [0, 12, 0], opacity: [1, 0.2, 1] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-          />
+          <span className="scroll-dot mt-1.5 h-2 w-1 rounded-full bg-brand-2" />
         </span>
-      </motion.a>
+      </a>
     </section>
   );
 }
