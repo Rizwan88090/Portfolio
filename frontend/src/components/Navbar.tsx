@@ -5,7 +5,8 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring } fr
 import { ArrowUpRight, Lock, Menu, Phone, X } from 'lucide-react';
 import Logo from './Logo';
 import Magnetic from './Magnetic';
-import { SITE, telHref } from '@/data/site';
+import { SITE, telHref, whatsappHref } from '@/data/site';
+import WhatsAppIcon from './WhatsAppIcon';
 import { getLenis, scrollToId } from '@/lib/scroll';
 
 const LINKS = [
@@ -215,6 +216,14 @@ export default function Navbar() {
                 className="flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-brand-1 to-brand-2 py-4 font-semibold text-white"
               >
                 Start a project <ArrowUpRight className="h-4 w-4" />
+              </a>
+              <a
+                href={whatsappHref()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 rounded-2xl bg-[#25D366]/10 py-4 font-semibold text-white ring-1 ring-[#25D366]/40"
+              >
+                <WhatsAppIcon className="h-5 w-5 text-[#25D366]" /> Chat on WhatsApp
               </a>
               <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-mist">
                 {SITE.phones.map((p) => (

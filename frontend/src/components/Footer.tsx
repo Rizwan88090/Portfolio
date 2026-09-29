@@ -1,5 +1,6 @@
-import { ArrowUpRight, Lock, Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
-import { SITE, telHref } from '@/data/site';
+import { ArrowUpRight, Lock, Mail, MapPin, Phone } from 'lucide-react';
+import { SITE, telHref, whatsappHref } from '@/data/site';
+import WhatsAppIcon from './WhatsAppIcon';
 import Logo from './Logo';
 import Reveal from './Reveal';
 import Magnetic from './Magnetic';
@@ -20,7 +21,6 @@ const COMPANY_LINKS = [
   { href: '#order', label: 'Start a Project' },
 ];
 
-const whatsapp = `https://wa.me/92${SITE.phones[0].replace(/\D/g, '').replace(/^0/, '')}`;
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -53,12 +53,12 @@ export default function Footer() {
               </Magnetic>
               <Magnetic>
                 <a
-                  href={whatsapp}
+                  href={whatsappHref()}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 rounded-2xl px-6 py-3.5 font-semibold text-white ring-1 ring-white/15 transition hover:bg-white/5"
                 >
-                  <MessageCircle className="h-4 w-4 text-emerald-400" /> WhatsApp us
+                  <WhatsAppIcon className="h-4 w-4 text-[#25D366]" /> WhatsApp us
                 </a>
               </Magnetic>
             </div>
@@ -104,6 +104,12 @@ export default function Footer() {
               </a>
             </li>
           ))}
+          <li>
+            <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 text-mist transition hover:text-white">
+              <IconBox><WhatsAppIcon className="h-4 w-4 text-[#25D366]" /></IconBox>
+              WhatsApp {SITE.whatsappDisplay}
+            </a>
+          </li>
           {SITE.email && (
             <li>
               <a href={`mailto:${SITE.email}`} className="group flex items-center gap-3 text-mist transition hover:text-white">

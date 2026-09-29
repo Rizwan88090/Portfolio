@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { CheckCircle2, Loader2, Mail, MapPin, Phone, Send } from 'lucide-react';
-import { BUDGETS, SERVICES, SITE, TIMELINES, telHref } from '@/data/site';
+import { BUDGETS, SERVICES, SITE, TIMELINES, telHref, whatsappHref } from '@/data/site';
+import WhatsAppIcon from './WhatsAppIcon';
 import { API_URL } from '@/lib/api';
 import Reveal, { SectionHeading } from './Reveal';
 
@@ -50,7 +51,7 @@ export default function OrderForm() {
       setStatus('error');
       setError(
         err instanceof TypeError
-          ? `We could not reach our server. Please call or WhatsApp us at ${SITE.phones[0]}.`
+          ? `We could not reach our server. Please WhatsApp us at ${SITE.whatsappDisplay}.`
           : (err as Error).message,
       );
     }
@@ -87,6 +88,12 @@ export default function OrderForm() {
                     <a href={telHref(p)} className="hover:text-brand-2">{p}</a>
                   </li>
                 ))}
+                <li className="flex items-center gap-3 text-white">
+                  <WhatsAppIcon className="h-5 w-5 text-[#25D366]" />
+                  <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" className="hover:text-brand-2">
+                    WhatsApp {SITE.whatsappDisplay}
+                  </a>
+                </li>
                 <li className="flex items-center gap-3 text-white">
                   <MapPin className="h-5 w-5 text-brand-2" />
                   {SITE.location}

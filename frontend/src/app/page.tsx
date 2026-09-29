@@ -9,6 +9,7 @@ import WhyUs from '@/components/WhyUs';
 import OrderForm from '@/components/OrderForm';
 import Footer from '@/components/Footer';
 import MobileCta from '@/components/MobileCta';
+import WhatsAppButton from '@/components/WhatsAppButton';
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
       </main>
       <Footer />
       <MobileCta />
+      <WhatsAppButton />
     </>
   );
 }

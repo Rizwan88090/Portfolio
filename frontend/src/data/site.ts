@@ -10,10 +10,17 @@ export const SITE = {
   phones: ['0309 5693653', '0346 1416947'],
   city: 'Lahore, Pakistan',
   location: 'Lahore, Pakistan · Serving clients worldwide',
+  /** WhatsApp number in international format, digits only. Used by every WhatsApp button. */
+  whatsapp: '923461416947',
+  whatsappDisplay: '+92 346 1416947',
 };
 
 /** Pakistani local number to an international tel: link, e.g. 0309... -> +92309... */
 export const telHref = (p: string) => `tel:+92${p.replace(/\D/g, '').replace(/^0/, '')}`;
+
+/** Opens a WhatsApp chat with the company, with an optional pre-filled message. */
+export const whatsappHref = (text = "Hello Pentacore, I'd like to discuss a project.") =>
+  `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(text)}`;
 
 // Keep in sync with backend/src/orders/dto/create-order.dto.ts
 export const SERVICES = [
