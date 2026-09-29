@@ -58,7 +58,7 @@ export default function OrderForm() {
 
   return (
     <section id="order" className="relative scroll-mt-24 py-24">
-      <div className="pointer-events-none absolute inset-x-0 top-0 mx-auto h-[500px] max-w-4xl rounded-full bg-brand-1/15 blur-[160px]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 mx-auto h-[500px] max-w-4xl rounded-full blob-violet" />
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Start a project"

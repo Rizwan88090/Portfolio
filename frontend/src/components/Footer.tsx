@@ -26,7 +26,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer id="site-footer" className="relative overflow-hidden border-t border-white/5 bg-ink-900/40">
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-[400px] w-[900px] -translate-x-1/2 rounded-full bg-brand-1/10 blur-[140px]" />
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[400px] w-[900px] -translate-x-1/2 rounded-full blob-violet" />
 
       {/* Call to action */}
       <div className="relative mx-auto max-w-6xl px-4 pt-20 sm:px-6">

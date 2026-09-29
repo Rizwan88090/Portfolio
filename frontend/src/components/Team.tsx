@@ -48,7 +48,7 @@ function Avatar({ m }: { m: TeamMember }) {
 export default function Team() {
   return (
     <section id="team" className="relative scroll-mt-24 py-24">
-      <div className="pointer-events-none absolute top-1/3 left-0 h-[400px] w-[400px] rounded-full bg-brand-3/10 blur-[140px]" />
+      <div className="pointer-events-none absolute top-1/3 left-0 h-[400px] w-[400px] rounded-full blob-pink" />
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="The founders"

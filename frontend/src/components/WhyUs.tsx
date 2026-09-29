@@ -13,7 +13,7 @@ const POINTS = [
 export default function WhyUs() {
   return (
     <section id="why" className="relative scroll-mt-24 py-24">
-      <div className="pointer-events-none absolute right-0 bottom-0 h-[400px] w-[500px] rounded-full bg-brand-2/10 blur-[140px]" />
+      <div className="pointer-events-none absolute right-0 bottom-0 h-[400px] w-[500px] rounded-full blob-cyan" />
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading eyebrow="Why Pentacore" title="Product-team quality," highlight="partner-level commitment." />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

@@ -51,12 +51,12 @@ export default function Hero() {
       {/* Background glow + grid */}
       <div className="pointer-events-none absolute inset-0">
         <motion.div
-          className="absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-brand-1/25 blur-[140px]"
+          className="absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full blob-violet"
           animate={{ opacity: [0.7, 1, 0.7], scale: [1, 1.08, 1] }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="absolute right-[-10%] bottom-[-20%] h-[500px] w-[500px] rounded-full bg-brand-2/15 blur-[140px]"
+          className="absolute right-[-10%] bottom-[-20%] h-[500px] w-[500px] rounded-full blob-cyan"
           animate={{ x: [0, -60, 0], y: [0, -40, 0] }}
           transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
         />
@@ -96,7 +96,7 @@ export default function Hero() {
                   <motion.span
                     className={`inline-block ${w.gradient ? 'text-gradient' : ''}`}
                     initial={{ y: '110%', opacity: 0, filter: 'blur(10px)' }}
-                    animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
+                    animate={{ y: '0%', opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
                     transition={{ delay: 0.3 + i * 0.08, duration: 0.9, ease: EASE }}
                   >
                     {w.text}

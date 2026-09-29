@@ -101,7 +101,7 @@ function Login({ onSignedIn }: { onSignedIn: (a: Admin) => void }) {
 
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-4">
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-brand-1/20 blur-[140px]" />
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full blob-violet" />
       <div className="grid-bg pointer-events-none absolute inset-0" />
       <motion.form
         onSubmit={submit}
